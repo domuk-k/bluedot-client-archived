@@ -11,10 +11,13 @@ export default function Navigation(): ReactElement {
     <Box
       as="nav"
       p=".5rem"
-      bg="black"
       color="white"
       w="100vw"
       userSelect="none"
+      bg="transparent"
+      pos="fixed"
+      zIndex="2"
+      style={{ backdropFilter: 'blur(5px)' }}
     >
       <Flex
         className="header-container"

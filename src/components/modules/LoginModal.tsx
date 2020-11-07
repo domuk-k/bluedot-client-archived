@@ -4,13 +4,7 @@ import React from 'react';
 interface Props {}
 
 const LoginModal = (props: Props) => {
-  return (
-    <Box color="white">
-      <Box pos="absolute" top="0">
-        로그인하세
-      </Box>
-    </Box>
-  );
+  return <Box>로그인하세</Box>;
 };
 
 export default LoginModal;
