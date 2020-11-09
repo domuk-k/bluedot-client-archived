@@ -1,28 +1,18 @@
-import {
-  Box,
-  Button,
-  CloseButton,
-  Flex,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/core';
-import React, { useState } from 'react';
+import { Button, useDisclosure } from '@chakra-ui/core';
+import React from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import LoginModal from '../modules/LoginModal';
-import usePortal from '../../hooks/usePortal';
 
 interface Props {}
 
-const LoginButton = (props: Props) => {
+const LoginButton: React.FC<{}> = (props: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleSubmit = (values: any) => {
+    console.log(values);
+
+    alert(values);
+  };
   return (
     <>
       <SearchIcon />
@@ -30,37 +20,7 @@ const LoginButton = (props: Props) => {
         회원가입/로긴
       </Button>
       {isOpen && (
-        <Modal
-          blockScrollOnMount={true}
-          closeOnOverlayClick={true}
-          isOpen={isOpen}
-          onClose={onClose}
-          isCentered
-          preserveScrollBarGap
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader textAlign="center">
-              로그인하기
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Box as="label">이메일</Box>
-              <Input />
-            </ModalBody>
-
-            <ModalFooter>
-              <Button
-                variantColor="blue"
-                mr={3}
-                onClick={onClose}
-              >
-                확인
-              </Button>
-              <Button variant="ghost">취소</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <LoginModal isOpen={isOpen} onClose={onClose} />
       )}
     </>
   );
