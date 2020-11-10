@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Img } from '@chakra-ui/core';
+import { Box, Img } from '@chakra-ui/core';
 import React from 'react';
 
 interface Props {}

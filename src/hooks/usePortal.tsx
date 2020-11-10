@@ -1,9 +1,4 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  DOMElement,
-} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function usePortal() {

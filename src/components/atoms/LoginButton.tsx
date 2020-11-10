@@ -1,27 +1,18 @@
-import { Button, useDisclosure } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/core';
 import React from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
-import LoginModal from '../modules/LoginModal';
 
-interface Props {}
+type LoginProps = {
+  onClick(): void;
+};
 
-const LoginButton: React.FC<{}> = (props: Props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleSubmit = (values: any) => {
-    console.log(values);
-
-    alert(values);
-  };
+const LoginButton: React.FC<LoginProps> = ({ onClick }) => {
   return (
     <>
       <SearchIcon />
-      <Button bg="primary.700" onClick={onOpen}>
+      <Button bg="primary.700" onClick={onClick}>
         회원가입/로긴
       </Button>
-      {isOpen && (
-        <LoginModal isOpen={isOpen} onClose={onClose} />
-      )}
     </>
   );
 };

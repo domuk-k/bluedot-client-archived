@@ -1,13 +1,6 @@
 import * as React from 'react';
 import Layout from '../components/Layout';
-import {
-  Box,
-  chakra,
-  Flex,
-  Image,
-  Link,
-  Text,
-} from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 import Navigation from '../components/oraganisms/Navigation';
 import MainContents from '../components/oraganisms/MainContents';
 import Hero from '../components/oraganisms/Hero';
