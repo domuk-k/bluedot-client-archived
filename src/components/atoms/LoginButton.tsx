@@ -10,7 +10,7 @@ const LoginButton = (props: Props) => {
   const toggleModal = () => setVisible(!visible);
   return (
     <Box>
-      <SearchIcon mr="20px" />
+      {/* <SearchIcon mr="20px" /> */}
       <Button bg="primary.700" onClick={toggleModal}>
         회원가입/로긴
       </Button>
