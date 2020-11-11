@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 
 export default Yup.object({
   email: Yup.string()
-    .email('이메일주소를 입력해주세요')
     .matches(/^((?!gmail(?=(.com))).)*$/, {
       message: '구글로 로그인해주세요',
       excludeEmptyString: true,

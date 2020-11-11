@@ -13,10 +13,11 @@ import {
   Stack,
 } from '@chakra-ui/core';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import Input from '../atoms/Input';
 import sigupSchema from '../../utils/sigupSchema';
+import InputErrorMessage from '../atoms/InputErrorMessage';
 
 interface ISignInModal {
   setModalMode: React.Dispatch<React.SetStateAction<any>>;
@@ -27,6 +28,7 @@ const SignUpModal: React.FC<ISignInModal> = (props) => {
     email: '',
     name: '',
     password: '',
+    allowance: [],
   };
   const [checkedItems, setCheckedItems] = React.useState([
     false,
@@ -39,14 +41,19 @@ const SignUpModal: React.FC<ISignInModal> = (props) => {
   const [show, setShow] = React.useState(false);
   const handlePWshow = () => setShow(!show);
 
+  const handleClickCheck = (e: any) =>
+    setCheckedItems([e.target.checked, e.target.checked]);
+
   return (
     <ModalContent>
-      <ModalHeader>회원가입</ModalHeader>
+      <ModalHeader textAlign="center">회원가입</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
+            console.log('??');
+
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
@@ -64,43 +71,47 @@ const SignUpModal: React.FC<ISignInModal> = (props) => {
                 type="email"
                 name="email"
                 // value={values.email}
-                value="mailCheck로들어온값.com"
-                border="none"
+                value="ReturnValue@mailCheckAPI.com"
+                border="none+"
                 focusBorderColor="transparent"
                 bg="#eee"
-                readOnly
+                isReadOnly
               />
-              <Box as="label" htmlFor="password">
+              <Box as="label" htmlFor="name">
                 이름
               </Box>
               <Input
                 as={Field}
-                type="name"
                 name="name"
+                id="name"
                 value={values.name}
                 border="1px lightgrey solid"
                 focusBorderColor="primary.800"
               />
-              <ErrorMessage name="name" />
-              <Box as="label" htmlFor="name">
+              {errors.name && touched.name && (
+                <InputErrorMessage children={errors.name} />
+              )}
+
+              <Box as="label" htmlFor="password">
                 비밀번호
               </Box>
               <InputGroup size="md">
                 <Input
                   as={Field}
-                  pr="4.5rem"
                   type={show ? 'text' : 'password'}
+                  name="password"
+                  id="password"
+                  pr="4.5rem"
                   placeholder="Enter password"
                   border="1px lightgrey solid"
                   focusBorderColor="primary.800"
-                  name="password"
                   value={values.password}
                 />
 
-                <InputRightElement width="4.5rem">
+                <InputRightElement width="4.5rem" w="40px">
                   <Button
-                    h="1.75rem"
                     size="sm"
+                    p="0"
                     onMouseDown={handlePWshow}
                     onMouseUp={handlePWshow}
                   >
@@ -108,53 +119,64 @@ const SignUpModal: React.FC<ISignInModal> = (props) => {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              <ErrorMessage name="password" />
+              {errors.password && touched.password && (
+                <InputErrorMessage
+                  children={errors.password}
+                />
+              )}
 
               <Box mt={5}>
-                <Checkbox
-                  isChecked={allChecked}
-                  isIndeterminate={isIndeterminate}
-                  onChange={(e) =>
-                    setCheckedItems([
-                      e.target.checked,
-                      e.target.checked,
-                    ])
-                  }
-                  children="전체 동의"
-                  defaultIsChecked
-                  isRequired={true}
-                />
+                <label>
+                  <Field
+                    as={Checkbox}
+                    name="allowance"
+                    type="checkbox"
+                    children="전체 동의"
+                    isChecked={allChecked}
+                    isIndeterminate={isIndeterminate}
+                    onChange={handleClickCheck}
+                    defaultIsChecked
+                    border="lightgrey"
+                  />
+                </label>
                 <Divider mt={2} borderColor="#aaa" />
                 <Stack mt={2} spacing={2}>
-                  <Checkbox
-                    isChecked={checkedItems[0]}
-                    onChange={(e) =>
-                      setCheckedItems([
-                        e.target.checked,
-                        checkedItems[1],
-                      ])
-                    }
-                    children="개인정보 수집동의 1"
-                    isRequired={true}
-                  />
-                  <Checkbox
-                    isChecked={checkedItems[1]}
-                    onChange={(e) =>
-                      setCheckedItems([
-                        checkedItems[0],
-                        e.target.checked,
-                      ])
-                    }
-                    children="개인정보 수집동의 2"
-                    isRequired={true}
-                  />
+                  <label>
+                    <Field
+                      as={Checkbox}
+                      name="allowance"
+                      type="checkbox"
+                      isChecked={checkedItems[0]}
+                      onChange={handleClickCheck}
+                      children="개인정보 수집동의 및 이용 동의 (필수)"
+                      border="lightgrey"
+                      variantcolor=""
+                    />
+                  </label>
+                  <label>
+                    <Field
+                      as={Checkbox}
+                      name="allowance"
+                      type="checkbox"
+                      isChecked={checkedItems[1]}
+                      onChange={handleClickCheck}
+                      children="마케팅 정보 이용에 관한 동의"
+                      border="lightgrey"
+                    />
+                  </label>
                 </Stack>
               </Box>
               <ModalFooter px={0}>
                 <Button
                   type="submit"
                   w="100%"
-                  disabled={isSubmitting}
+                  bg="custom.cta"
+                  color="white"
+                  // isDisabled={
+                  //   isSubmitting || !!errors.email
+                  // }
+                  _disabled={{ background: 'lightgrey' }}
+                  _hover={{ background: 'primary.400' }}
                 >
                   가입하기
                 </Button>

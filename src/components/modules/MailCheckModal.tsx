@@ -10,9 +10,11 @@ import {
   ModalHeader,
   Stack,
 } from '@chakra-ui/core';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import mailCheckSchema from '../../utils/mailCheckSchema';
 import Input from '../atoms/Input';
+import SocialLoginButton from '../atoms/SocialButton';
+import InputErrorMessage from '../atoms/InputErrorMessage';
 
 interface IMailCheckProps {
   setModalMode: React.Dispatch<React.SetStateAction<any>>;
@@ -24,9 +26,8 @@ const MailCheckModal: React.FC<IMailCheckProps> = ({
   const initialValues = {
     email: '',
   };
-  const goSignIn = () => {
-    setModalMode(1);
-  };
+  const goSignIn = () => setModalMode(1);
+
   return (
     <ModalContent>
       <ModalHeader textAlign="center">
@@ -37,15 +38,12 @@ const MailCheckModal: React.FC<IMailCheckProps> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-              goSignIn();
-            }, 400);
+            setSubmitting(false);
+            goSignIn();
           }}
           validationSchema={mailCheckSchema}
         >
-          {({ values, errors, touched, isSubmitting }) => (
+          {({ values, errors, isSubmitting }) => (
             <Form noValidate>
               <Stack spacing="3">
                 <Box as="label" htmlFor="email">
@@ -57,19 +55,27 @@ const MailCheckModal: React.FC<IMailCheckProps> = ({
                   name="email"
                   value={values.email}
                   borderColor={
-                    touched.email && errors.email
-                      ? 'crimson'
+                    errors.email
+                      ? 'custom.warn'
                       : 'lightgrey'
                   }
                   focusBorderColor="primary.800"
                 />
-                <ErrorMessage name="email" />
+                {errors.email && (
+                  <InputErrorMessage
+                    children={errors.email}
+                  />
+                )}
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
                   w="100%"
-                  bg="cta"
+                  bg="custom.cta"
                   color="white"
+                  isDisabled={
+                    isSubmitting || !!errors.email
+                  }
+                  _disabled={{ background: 'lightgrey' }}
+                  _hover={{ background: 'primary.400' }}
                 >
                   이메일로 시작
                 </Button>
@@ -81,20 +87,8 @@ const MailCheckModal: React.FC<IMailCheckProps> = ({
       </ModalBody>
       <ModalFooter display="unset">
         <Stack>
-          <Button
-            bg="white"
-            border="1px lightgrey solid"
-            w="100%"
-          >
-            페이스북으로 로그인
-          </Button>
-          <Button
-            bg="white"
-            border="1px lightgrey solid"
-            w="100%"
-          >
-            구글로 로그인
-          </Button>
+          <SocialLoginButton name="페이스북" />
+          <SocialLoginButton name="구글" />
         </Stack>
       </ModalFooter>
     </ModalContent>

@@ -7,4 +7,5 @@ export default Yup.object({
   password: Yup.string().required(
     '비밀번호를 입력해주세요'
   ),
+  // allowance: Yup.bool().required(),
 });
