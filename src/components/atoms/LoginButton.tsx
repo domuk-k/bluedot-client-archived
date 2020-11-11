@@ -1,21 +1,19 @@
-import { Box, Button, Icon } from '@chakra-ui/core';
-import React, { useState } from 'react';
-import { SearchIcon } from '@chakra-ui/icons';
-import LoginModal from '../modules/LoginModal';
+import { Button } from '@chakra-ui/core';
+import React from 'react';
+// import { SearchIcon } from '@chakra-ui/icons';
 
-interface Props {}
+type LoginProps = {
+  onClick(): void;
+};
 
-const LoginButton = (props: Props) => {
-  const [visible, setVisible] = useState(false);
-  const toggleModal = () => setVisible(!visible);
+const LoginButton: React.FC<LoginProps> = ({ onClick }) => {
   return (
-    <Box>
-      {/* <SearchIcon mr="20px" /> */}
-      <Button bg="primary.700" onClick={toggleModal}>
+    <>
+      {/* <SearchIcon /> */}
+      <Button bg="primary.700" onClick={onClick}>
         회원가입/로긴
       </Button>
-      {visible && <LoginModal />}
-    </Box>
+    </>
   );
 };
 

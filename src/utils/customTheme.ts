@@ -31,6 +31,12 @@ const customTheme = {
       900: '#080FC7',
     },
     basicBlack: '#181818',
+
+    custom: {
+      warn: '#ff4747',
+      cta: '#0000FF',
+      subtle: '#f1f1f1',
+    },
   },
 };
 

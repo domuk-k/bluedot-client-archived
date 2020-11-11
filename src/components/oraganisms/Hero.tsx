@@ -72,13 +72,12 @@ const Hero = (props: Props) => {
       {/* </AspectRatio> */}
       <Box
         pos="absolute"
-        top="50%"
-        left="60%"
         w="30vw"
-        color="white"
+        color="grey"
+        bottom="20px"
       >
         <Box as="h3" fontSize="1.6rem">
-          <h2>닷비디오</h2>
+          닷비디오
         </Box>
         <Box as="p" fontSize="1rem">
           Lorem ipsum dolor sit amet, consectetur

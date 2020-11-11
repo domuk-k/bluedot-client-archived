@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  MenuItem,
-  Text,
-} from '@chakra-ui/core';
+import { Flex } from '@chakra-ui/core';
 import React from 'react';
 
 const Layout: React.FC = (props) => {

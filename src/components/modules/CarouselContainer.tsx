@@ -1,8 +1,6 @@
 import {
   Box,
   Center,
-  Flex,
-  Grid,
   List,
   ListItem,
 } from '@chakra-ui/core';
